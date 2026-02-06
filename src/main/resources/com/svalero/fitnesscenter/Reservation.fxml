@@ -28,8 +28,10 @@
         <Label layoutX="69.0" layoutY="115.0" text="Class" />
         <ComboBox fx:id="cbReservaClase" layoutX="143.0" layoutY="111.0" prefWidth="180.0" />
 
-        <Label layoutX="69.0" layoutY="165.0" text="Price" />
+        <Label layoutX="69.0" layoutY="165.0" text="Final price" />
         <TextField fx:id="tfReservaPrecioFinal" layoutX="144.0" layoutY="161.0" />
+        <Label layoutX="320.0" layoutY="165.0" text="€" />
+
 
         <Label layoutX="69.0" layoutY="210.0" text="Date" />
         <DatePicker fx:id="dpReservaFecha" layoutX="132.0" layoutY="206.0" />
@@ -45,6 +47,10 @@
 
         <Button fx:id="btnReservaGuardar" layoutX="144.0" layoutY="273.0"
                 mnemonicParsing="false" text="Save" onAction="#saveReservation" />
+
+        <Button fx:id="btnReservaModificar" layoutX="220.0" layoutY="273.0"
+                mnemonicParsing="false" text="Modify" onAction="#modifyReservation" />
+
 
         <Button fx:id="btnReservaEliminar" layoutX="359.0" layoutY="261.0"
                 mnemonicParsing="false" text="Delete" onAction="#deleteReservation" />
