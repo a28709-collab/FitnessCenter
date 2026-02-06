@@ -18,39 +18,64 @@ public class ApplicationController implements Initializable {
     @FXML private ListView<Partner> lvClases;
     @FXML private Label lblSocioMensaje;
 
+    private Partner editingPartner = null;
+
     private ObservableList<Partner> allPartners;
 
     @Override
+
     public void initialize(URL url, ResourceBundle rb) {
-        // Carga inicial desde el repositorio
         DataRepository.loadData();
         allPartners = FXCollections.observableArrayList(DataRepository.getPartners());
         lvClases.setItems(allPartners);
 
-        // Listener para navegar
         lvClases.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
-            if (newV != null) showPartner(newV);
+            if (newV != null) {
+                editingPartner = newV;   // ✅ ESTE ES EL PUNTO
+                showPartner(newV);
+            }
         });
     }
 
+
     @FXML
     public void savePartner() {
+
         if (tfSocioUsername.getText().isEmpty() || tfSocioEmail.getText().isEmpty()) {
             lblSocioMensaje.setText("Error: Campos obligatorios vacíos.");
             return;
         }
 
-        Partner p = new Partner(tfSocioUsername.getText(), tfSocioEmail.getText(),
-                tfSocioPhone.getText(), dpSocioFechaAlta.getValue(),
-                cbClaseDisponible.isSelected());
+        if (editingPartner != null) {
+            // ✅ EDITAR
+            editingPartner.setUsername(tfSocioUsername.getText());
+            editingPartner.setEmail(tfSocioEmail.getText());
+            editingPartner.setPhone(tfSocioPhone.getText());
+            editingPartner.setDate(dpSocioFechaAlta.getValue());
+            editingPartner.setActive(cbClaseDisponible.isSelected());
 
-        // Guardar en Repositorio y actualizar lista visual
-        DataRepository.addPartner(p);
+            DataRepository.saveData(); // ✅ guardar cambios
+
+            lblSocioMensaje.setText("Socio actualizado.");
+        } else {
+            // ✅ NUEVO
+            Partner p = new Partner(
+                    tfSocioUsername.getText(),
+                    tfSocioEmail.getText(),
+                    tfSocioPhone.getText(),
+                    dpSocioFechaAlta.getValue(),
+                    cbClaseDisponible.isSelected()
+            );
+
+            DataRepository.addPartner(p);
+            lblSocioMensaje.setText("Socio creado.");
+        }
+
         allPartners.setAll(DataRepository.getPartners());
-
         clearPartnerFields();
-        lblSocioMensaje.setText("Socio guardado en el archivo.");
+        editingPartner = null;
     }
+
 
     @FXML
     public void deletePartner() {
@@ -76,7 +101,13 @@ public class ApplicationController implements Initializable {
     }
 
     // Métodos para evitar errores de FXML
-    @FXML public void newPartner() { clearPartnerFields(); }
+    @FXML
+    public void newPartner() {
+        editingPartner = null;   // ✅ importante
+        clearPartnerFields();
+        lblSocioMensaje.setText("Nuevo socio");
+    }
+
     @FXML public void editPartner() {}
     @FXML public void modifyPartner() {}
     @FXML public void saveTraining() {}
