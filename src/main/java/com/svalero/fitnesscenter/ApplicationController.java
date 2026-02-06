@@ -32,15 +32,25 @@ public class ApplicationController implements Initializable {
 
         lvClases.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
             if (newV != null) {
-                editingPartner = newV;   // ✅ ESTE ES EL PUNTO
+                editingPartner = newV;
                 showPartner(newV);
+                setFormDisabled(true);
+                lblSocioMensaje.setText("Socio seleccionado. Pulsa Modify para editar.");
             }
         });
-    }
+        clearPartnerFields();
+        setFormDisabled(true);
+        lblSocioMensaje.setText("Listo para crear socios.");
 
+    }
 
     @FXML
     public void savePartner() {
+
+        if (editingPartner != null && tfSocioUsername.isDisabled()) {
+            lblSocioMensaje.setText("Pulsa Modify antes de guardar cambios.");
+            return;
+        }
 
         if (tfSocioUsername.getText().isEmpty() || tfSocioEmail.getText().isEmpty()) {
             lblSocioMensaje.setText("Error: Campos obligatorios vacíos.");
@@ -55,10 +65,7 @@ public class ApplicationController implements Initializable {
             editingPartner.setDate(dpSocioFechaAlta.getValue());
             editingPartner.setActive(cbSocioActivo.isSelected());
 
-
-
-            DataRepository.saveData(); // ✅ guardar cambios
-
+            DataRepository.saveData();
             lblSocioMensaje.setText("Socio actualizado.");
         } else {
             // ✅ NUEVO
@@ -68,7 +75,6 @@ public class ApplicationController implements Initializable {
                     tfSocioPhone.getText(),
                     dpSocioFechaAlta.getValue(),
                     cbSocioActivo.isSelected()
-
             );
 
             DataRepository.addPartner(p);
@@ -76,19 +82,50 @@ public class ApplicationController implements Initializable {
         }
 
         allPartners.setAll(DataRepository.getPartners());
+        lvClases.refresh();
+
         clearPartnerFields();
         editingPartner = null;
+        lvClases.getSelectionModel().clearSelection();
+        setFormDisabled(true);
     }
+
+    @FXML
+    public void modifyPartner() {
+        Partner selected = lvClases.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            lblSocioMensaje.setText("Selecciona un socio para modificar.");
+            return;
+        }
+
+        editingPartner = selected;
+        showPartner(selected);
+        setFormDisabled(false);
+        lblSocioMensaje.setText("Editando socio... (pulsa Save para guardar)");
+    }
+
 
 
     @FXML
     public void deletePartner() {
         Partner selected = lvClases.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            DataRepository.removePartner(selected);
-            allPartners.setAll(DataRepository.getPartners());
-            lblSocioMensaje.setText("Socio eliminado.");
+        if (selected == null) {
+            lblSocioMensaje.setText("Selecciona un socio para eliminar.");
+            return;
         }
+
+        DataRepository.removePartner(selected);
+
+        allPartners.setAll(DataRepository.getPartners());
+        lvClases.refresh();
+
+        editingPartner = null;
+        lvClases.getSelectionModel().clearSelection();
+        clearPartnerFields();
+        setFormDisabled(true);
+
+        lblSocioMensaje.setText("Socio eliminado.");
     }
 
     private void showPartner(Partner p) {
@@ -106,16 +143,24 @@ public class ApplicationController implements Initializable {
 
     }
 
-    // Métodos para evitar errores de FXML
     @FXML
     public void newPartner() {
-        editingPartner = null;   // ✅ importante
+        editingPartner = null;
+        lvClases.getSelectionModel().clearSelection();
         clearPartnerFields();
+        setFormDisabled(false);
         lblSocioMensaje.setText("Nuevo socio");
     }
 
-    @FXML public void editPartner() {}
-    @FXML public void modifyPartner() {}
+    private void setFormDisabled(boolean disabled) {
+        tfSocioUsername.setDisable(disabled);
+        tfSocioEmail.setDisable(disabled);
+        tfSocioPhone.setDisable(disabled);
+        dpSocioFechaAlta.setDisable(disabled);
+        cbSocioActivo.setDisable(disabled);
+    }
+
+
     @FXML public void saveTraining() {}
     @FXML public void newTraining() {}
     @FXML public void editTraining() {}

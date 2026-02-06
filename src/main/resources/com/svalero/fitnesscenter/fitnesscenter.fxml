@@ -48,14 +48,14 @@
                       <Button fx:id="btnSocioNuevo" onAction="#newPartner"
                               layoutX="28.0" layoutY="293.0" mnemonicParsing="false" text="New" />
 
-                      <Button fx:id="btnSocioEditar" onAction="#editPartner"
-                              layoutX="96.0" layoutY="293.0" mnemonicParsing="false" text="Edit" />
-
                       <Button fx:id="btnSocioGuardar" onAction="#savePartner"
                               layoutX="161.0" layoutY="293.0" mnemonicParsing="false" text="Save" />
 
                       <Button fx:id="btnSocioModificar"
-                              layoutX="225.0" layoutY="293.0" mnemonicParsing="false" text="Modify" />
+                              layoutX="225.0" layoutY="293.0"
+                              mnemonicParsing="false" text="Modify"
+                              onAction="#modifyPartner" />
+
 
                       <!-- ✅ RENOMBRADO para no repetir fx:id -->
                       <CheckBox fx:id="cbSocioActivo" layoutX="224.0" layoutY="247.0"
