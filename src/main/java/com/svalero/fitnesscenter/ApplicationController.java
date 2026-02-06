@@ -155,6 +155,22 @@ public class ApplicationController implements Initializable {
     }
 
     @FXML
+    public void exportJson() {
+        try {
+            DataRepository.loadData();
+
+            JsonExporter.exportPartners(DataRepository.getPartners(), "partners.json");
+            JsonExporter.exportTrainings(DataRepository.getTrainings(), "trainings.json");
+
+            lblSocioMensaje.setText("Exportación JSON completada: partners.json y trainings.json");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            lblSocioMensaje.setText("Error exportando JSON.");
+        }
+    }
+
+    @FXML
     public void deletePartner() {
         Partner selected = lvClases.getSelectionModel().getSelectedItem();
         if (selected == null) {

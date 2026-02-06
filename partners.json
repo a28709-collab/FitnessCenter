@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "username": "Adrian",
+    "email": "adriangabas@gmail.com",
+    "phone": "2345678",
+    "date": "2026-02-04",
+    "active": true
+  },
+  {
+    "id": 2,
+    "username": "Peter",
+    "email": "peter@gamil.com",
+    "phone": "23456789",
+    "date": "2026-02-11",
+    "active": true
+  }
+]
