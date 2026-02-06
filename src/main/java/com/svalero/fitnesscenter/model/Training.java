@@ -38,4 +38,6 @@ public class Training {
     public boolean isAvailableCoach(){return available;}
     public void setAvailable(boolean available){this.available= available;}
 
+    @Override
+    public String toString() { return name + " (" + coach + ")"; }
 }

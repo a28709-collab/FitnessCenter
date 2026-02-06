@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.svalero.fitnesscenter.ApplicationController">
   <tabs>
     <Tab text="Socios">
       <content>
@@ -29,11 +29,11 @@
                   <Label layoutX="40.0" layoutY="80.0" text="Username" />
                   <Label layoutX="48.0" layoutY="118.0" text="Email" />
                   <Label layoutX="56.0" layoutY="165.0" text="Phone" />
-                  <ListView fx:id="lvClases" layoutX="377.0" layoutY="40.0" prefHeight="200.0" prefWidth="200.0" />
-                  <Button fx:id="btnSocioEliminar" layoutX="377.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
-                  <Button fx:id="btnSocioNuevo" layoutX="28.0" layoutY="293.0" mnemonicParsing="false" text="New" />
-                  <Button fx:id="btnSocioEditar" layoutX="96.0" layoutY="293.0" mnemonicParsing="false" text="Edit" />
-                  <Button fx:id="btnSocioGuardar" layoutX="161.0" layoutY="293.0" mnemonicParsing="false" text="Save" />
+                   <ListView fx:id="lvClases" layoutX="377.0" layoutY="40.0" prefHeight="200.0" prefWidth="200.0" />
+                   <Button fx:id="btnSocioEliminar" onAction="#deletePartner" layoutX="377.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
+                   <Button fx:id="btnSocioNuevo" layoutX="28.0" layoutY="293.0" mnemonicParsing="false" onAction="#newPartner" text="New" />
+                  <Button fx:id="btnSocioEditar" layoutX="96.0" layoutY="293.0" mnemonicParsing="false" onAction="#editPartner" text="Edit" />
+                  <Button fx:id="btnSocioGuardar" layoutX="161.0" layoutY="293.0" mnemonicParsing="false" onAction="#savePartner" text="Save" />
                   <Button fx:id="btnSocioModificar" layoutX="225.0" layoutY="293.0" mnemonicParsing="false" text="Modify" />
                   <CheckBox fx:id="cbClaseDisponible" layoutX="224.0" layoutY="247.0" mnemonicParsing="false" text="Active" />
                   <DatePicker fx:id="dpSocioFechaAlta" layoutX="114.0" layoutY="207.0" />
