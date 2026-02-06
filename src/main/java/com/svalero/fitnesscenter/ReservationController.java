@@ -119,16 +119,24 @@ public class ReservationController implements Initializable {
         float finalPrice;
         try {
             String txt = tfReservaPrecioFinal.getText().trim();
-            finalPrice = txt.isEmpty() ? 0f : Float.parseFloat(txt);
+            if (txt.isEmpty()) {
+                finalPrice = 0f;
+            } else {
+                finalPrice = Float.parseFloat(txt.replace(",", "."));
+            }
         } catch (Exception e) {
-            lblReservaMensaje.setText("Error: precio final inválido.");
+            lblReservaMensaje.setText("Error: precio final inválido (ej: 10.5).");
+            return;
+        }
+
+        if (finalPrice < 0) {
+            lblReservaMensaje.setText("Error: el precio final no puede ser negativo.");
             return;
         }
 
         boolean paid = cbReservaPagado.isSelected();
 
         if (editingReservation != null) {
-            // ✅ EDITAR (sin crear otra)
             editingReservation.setPartnerId(partner.getId());
             editingReservation.setTrainingId(training.getId());
             editingReservation.setPaid(paid);
@@ -151,7 +159,6 @@ public class ReservationController implements Initializable {
         lvReservas.getSelectionModel().clearSelection();
         setFormDisabled(true);
     }
-
 
     @FXML
     public void modifyReservation() {

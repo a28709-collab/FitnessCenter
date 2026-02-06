@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import java.util.regex.Pattern;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +25,12 @@ public class ApplicationController implements Initializable {
 
 
     private Partner editingPartner = null;
+    private static final Pattern EMAIL_PATTERN =
+            Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+
+    private static final Pattern PHONE_PATTERN =
+            Pattern.compile("^\\d{9}$"); // 9 dígitos
+
 
     private ObservableList<Partner> allPartners;
 
@@ -57,27 +64,47 @@ public class ApplicationController implements Initializable {
             return;
         }
 
-        if (tfSocioUsername.getText().isEmpty() || tfSocioEmail.getText().isEmpty()) {
-            lblSocioMensaje.setText("Error: Campos obligatorios vacíos.");
+        String username = tfSocioUsername.getText().trim();
+        String email = tfSocioEmail.getText().trim();
+        String phone = tfSocioPhone.getText().trim();
+
+        if (username.isEmpty() || email.isEmpty()) {
+            lblSocioMensaje.setText("Error: Username y Email son obligatorios.");
             return;
         }
 
+        if (username.length() < 3) {
+            lblSocioMensaje.setText("Error: Username debe tener al menos 3 caracteres.");
+            return;
+        }
+
+        if (!EMAIL_PATTERN.matcher(email).matches()) {
+            lblSocioMensaje.setText("Error: Email inválido (ej: nombre@correo.com).");
+            return;
+        }
+
+        if (!phone.isEmpty() && !PHONE_PATTERN.matcher(phone).matches()) {
+            lblSocioMensaje.setText("Error: Teléfono inválido (debe tener 9 dígitos).");
+            return;
+        }
+
+
         if (editingPartner != null) {
-            // ✅ EDITAR
-            editingPartner.setUsername(tfSocioUsername.getText());
-            editingPartner.setEmail(tfSocioEmail.getText());
-            editingPartner.setPhone(tfSocioPhone.getText());
+            // EDITAR
+            editingPartner.setUsername(username);
+            editingPartner.setEmail(email);
+            editingPartner.setPhone(phone);
             editingPartner.setDate(dpSocioFechaAlta.getValue());
             editingPartner.setActive(cbSocioActivo.isSelected());
 
             DataRepository.saveData();
             lblSocioMensaje.setText("Socio actualizado.");
         } else {
-            // ✅ NUEVO
+            // NUEVO
             Partner p = new Partner(
-                    tfSocioUsername.getText(),
-                    tfSocioEmail.getText(),
-                    tfSocioPhone.getText(),
+                    username,
+                    email,
+                    phone,
                     dpSocioFechaAlta.getValue(),
                     cbSocioActivo.isSelected()
             );
@@ -94,6 +121,7 @@ public class ApplicationController implements Initializable {
         lvClases.getSelectionModel().clearSelection();
         setFormDisabled(true);
     }
+
 
     @FXML
     public void modifyPartner() {
@@ -125,9 +153,6 @@ public class ApplicationController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
-
 
     @FXML
     public void deletePartner() {
