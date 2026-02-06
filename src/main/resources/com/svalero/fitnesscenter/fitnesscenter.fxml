@@ -72,18 +72,33 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Reserva">
-         <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="24.0" layoutY="14.0" prefHeight="36.0" prefWidth="147.0" text="Reservations">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
-  </tabs>
+     <Tab text="Reserva">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Label layoutX="23.0" layoutY="14.0" text="Reservations">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="cbReservaSocio" layoutX="142.0" layoutY="64.0" />
+                        <TextField fx:id="cbReservaClase" layoutX="143.0" layoutY="111.0" />
+                        <TextField fx:id="tfReservaPrecioFinal" layoutX="144.0" layoutY="161.0" />
+                        <CheckBox fx:id="cbReservaPagado" layoutX="220.0" layoutY="249.0" mnemonicParsing="false" text="Pagado" />
+                        <DatePicker fx:id="dpReservaFecha" layoutX="132.0" layoutY="206.0" />
+                        <Label layoutX="64.0" layoutY="68.0" text="Partner" />
+                        <Label layoutX="69.0" layoutY="115.0" text="Class" />
+                        <Label layoutX="69.0" layoutY="165.0" text="Price" />
+                        <Label layoutX="69.0" layoutY="210.0" text="Date" />
+                        <ListView fx:id="lvReservas" layoutX="359.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button fx:id="btnReservaNuevo" layoutX="43.0" layoutY="273.0" mnemonicParsing="false" text="New" />
+                        <Button fx:id="btnReservaEditar" layoutX="96.0" layoutY="273.0" mnemonicParsing="false" text="Edit" />
+                        <Button fx:id="btnReservaGuardar" layoutX="144.0" layoutY="273.0" mnemonicParsing="false" text="Save" />
+                        <Button fx:id="btnReservaModificar" layoutX="200.0" layoutY="273.0" mnemonicParsing="false" text="Modify" />
+                        <Button fx:id="btnReservaEliminar" layoutX="359.0" layoutY="261.0" mnemonicParsing="false" text="Delete" />
+                        <Label fx:id="lblReservaMensaje" layoutX="29.0" layoutY="340.0" prefHeight="18.0" prefWidth="553.0" text="Label" />
+                    </children></AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
 </TabPane>
