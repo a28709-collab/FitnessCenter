@@ -65,6 +65,7 @@ public class TrainingController implements Initializable {
 
     @FXML
     public void saveTraining() {
+
         if (editingTraining != null && tfClaseNombre.isDisabled()) {
             lblClaseMensaje.setText("Pulsa Modify antes de guardar cambios.");
             return;
@@ -75,25 +76,42 @@ public class TrainingController implements Initializable {
         LocalDate date = dpClaseFecha.getValue();
 
         if (name.isEmpty() || coach.isEmpty() || date == null) {
-            lblClaseMensaje.setText("Error: name, coach y date son obligatorios.");
+            lblClaseMensaje.setText("Error: Name, Coach y Date son obligatorios.");
+            return;
+        }
+
+        if (name.length() < 3) {
+            lblClaseMensaje.setText("Error: Name debe tener al menos 3 caracteres.");
+            return;
+        }
+
+        if (coach.length() < 3) {
+            lblClaseMensaje.setText("Error: Coach debe tener al menos 3 caracteres.");
             return;
         }
 
         int duration = spClaseDuracion.getValue();
-
+        if (duration <= 0) {
+            lblClaseMensaje.setText("Error: Duration debe ser mayor que 0.");
+            return;
+        }
 
         float price;
         try {
-            price = Float.parseFloat(tfClasePrecio.getText().trim());
+            price = Float.parseFloat(tfClasePrecio.getText().trim().replace(",", "."));
         } catch (Exception e) {
-            lblClaseMensaje.setText("Error: precio inválido.");
+            lblClaseMensaje.setText("Error: precio inválido (ej: 12.5).");
+            return;
+        }
+
+        if (price <= 0) {
+            lblClaseMensaje.setText("Error: el precio debe ser mayor que 0.");
             return;
         }
 
         boolean available = cbClaseDisponible.isSelected();
 
         if (editingTraining != null) {
-            // EDITAR
             editingTraining.setName(name);
             editingTraining.setCoach(coach);
             editingTraining.setDuration(duration);
@@ -104,7 +122,6 @@ public class TrainingController implements Initializable {
             DataRepository.saveData();
             lblClaseMensaje.setText("Clase actualizada.");
         } else {
-            // NUEVA
             Training t = new Training(name, coach, duration, price, date, available);
             DataRepository.addTraining(t);
             lblClaseMensaje.setText("Clase creada.");
@@ -118,6 +135,7 @@ public class TrainingController implements Initializable {
         lvClasesGym.getSelectionModel().clearSelection();
         setFormDisabled(true);
     }
+
     @FXML
     public void modifyTraining() {
         Training selected = lvClasesGym.getSelectionModel().getSelectedItem();
