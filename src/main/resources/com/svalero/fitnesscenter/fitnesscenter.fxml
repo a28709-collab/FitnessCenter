@@ -17,62 +17,87 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <Label layoutX="14.0" layoutY="338.0" prefHeight="18.0" prefWidth="572.0" text="Label" />
-                        <Label layoutX="40.0" layoutY="26.0" prefHeight="26.0" prefWidth="87.0" text="Socios">
+                        <Label fx:id="lblSocioMensaje" layoutX="14.0" layoutY="338.0" prefHeight="18.0" prefWidth="572.0" text="Label" />
+                        <Label layoutX="50.0" layoutY="22.0" prefHeight="26.0" prefWidth="87.0" text="Socios">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </Label>
-                        <TextField layoutX="127.0" layoutY="76.0" />
-                        <TextField layoutX="127.0" layoutY="114.0" />
-                        <TextField layoutX="128.0" layoutY="161.0" />
+                        <TextField fx:id="tfSocioUsername" layoutX="127.0" layoutY="76.0" />
+                        <TextField fx:id="tfSocioEmail" layoutX="127.0" layoutY="114.0" />
+                        <TextField fx:id="tfSocioPhone" layoutX="128.0" layoutY="161.0" />
                         <Label layoutX="40.0" layoutY="80.0" text="Username" />
                         <Label layoutX="48.0" layoutY="118.0" text="Email" />
-                        <Label layoutX="48.0" layoutY="165.0" text="Phone" />
-                        <ListView layoutX="377.0" layoutY="40.0" prefHeight="200.0" prefWidth="200.0" />
-                        <Button layoutX="377.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
-                        <Button layoutX="28.0" layoutY="293.0" mnemonicParsing="false" text="New" />
-                        <Button layoutX="96.0" layoutY="293.0" mnemonicParsing="false" text="Edit" />
-                        <Button layoutX="161.0" layoutY="293.0" mnemonicParsing="false" text="Save" />
-                        <Button layoutX="225.0" layoutY="293.0" mnemonicParsing="false" text="Modify" />
-                        <CheckBox layoutX="224.0" layoutY="247.0" mnemonicParsing="false" text="Active" />
-                        <DatePicker layoutX="114.0" layoutY="207.0" />
+                        <Label layoutX="56.0" layoutY="165.0" text="Phone" />
+                        <ListView fx:id="lvClases" layoutX="377.0" layoutY="40.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button fx:id="btnSocioEliminar" layoutX="377.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
+                        <Button fx:id="btnSocioNuevo" layoutX="28.0" layoutY="293.0" mnemonicParsing="false" text="New" />
+                        <Button fx:id="btnSocioEditar" layoutX="96.0" layoutY="293.0" mnemonicParsing="false" text="Edit" />
+                        <Button fx:id="btnSocioGuardar" layoutX="161.0" layoutY="293.0" mnemonicParsing="false" text="Save" />
+                        <Button fx:id="btnSocioModificar" layoutX="225.0" layoutY="293.0" mnemonicParsing="false" text="Modify" />
+                        <CheckBox fx:id="cbClaseDisponible" layoutX="224.0" layoutY="247.0" mnemonicParsing="false" text="Active" />
+                        <DatePicker fx:id="dpSocioFechaAlta" layoutX="114.0" layoutY="207.0" />
                         <Label layoutX="48.0" layoutY="211.0" />
                         <Label layoutX="48.0" layoutY="211.0" text="Date" />
                     </children></AnchorPane>
             </content>
         </Tab>
-        <Tab text="Clase">
+        <Tab text="Clases">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Label layoutX="27.0" layoutY="25.0" text="Clases">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="tfClaseNombre" layoutX="132.0" layoutY="61.0" />
+                        <TextField fx:id="tfClaseEntrenador" layoutX="132.0" layoutY="100.0" />
+                        <TextField fx:id="tfClaseDuracion" layoutX="133.0" layoutY="140.0" />
+                        <TextField fx:id="tfClasePrecio" layoutX="134.0" layoutY="180.0" />
+                        <Label layoutX="61.0" layoutY="64.0" prefHeight="18.0" prefWidth="41.0" text="Name" />
+                        <Label layoutX="61.0" layoutY="104.0" text="Coach" />
+                        <Label layoutX="64.0" layoutY="144.0" text="Duration" />
+                        <Label layoutX="64.0" layoutY="184.0" text="Price" />
+                        <CheckBox fx:id="cbClaseDisponible" layoutX="209.0" layoutY="262.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="98.0" text="Available" />
+                        <DatePicker fx:id="dpClaseFecha" layoutX="113.0" layoutY="224.0" />
+                        <Label layoutX="64.0" layoutY="228.0" text="Date" />
+                        <Label fx:id="lblClaseMensaje" layoutX="13.0" layoutY="340.0" prefHeight="18.0" prefWidth="581.0" text="Label" />
+                        <ListView layoutX="368.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button fx:id="btnClaseNuevo" layoutX="27.0" layoutY="287.0" mnemonicParsing="false" text="New" />
+                        <Button fx:id="btnClaseEditar" layoutX="84.0" layoutY="287.0" mnemonicParsing="false" text="Edit" />
+                        <Button fx:id="btnClaseGuardar" layoutX="141.0" layoutY="287.0" mnemonicParsing="false" text="Save" />
+                        <Button fx:id="btnClaseModificar" layoutX="201.0" layoutY="287.0" mnemonicParsing="false" text="Modify" />
+                        <Button fx:id="btnClaseEliminar" layoutX="368.0" layoutY="274.0" mnemonicParsing="false" text="Delete" />
+                    </children></AnchorPane>
             </content>
         </Tab>
         <Tab text="Reserva">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="23.0" layoutY="14.0" text="Reservations">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="cbReservaSocio" layoutX="142.0" layoutY="64.0" />
-                  <TextField fx:id="cbReservaClase" layoutX="143.0" layoutY="111.0" />
-                  <TextField fx:id="tfReservaPrecioFinal" layoutX="144.0" layoutY="161.0" />
-                  <CheckBox fx:id="cbReservaPagado" layoutX="220.0" layoutY="249.0" mnemonicParsing="false" text="Pagado" />
-                  <DatePicker fx:id="dpReservaFecha" layoutX="132.0" layoutY="206.0" />
-                  <Label layoutX="64.0" layoutY="68.0" text="Partner" />
-                  <Label layoutX="69.0" layoutY="115.0" text="Class" />
-                  <Label layoutX="69.0" layoutY="165.0" text="Price" />
-                  <Label layoutX="69.0" layoutY="210.0" text="Date" />
-                  <ListView fx:id="lvReservas" layoutX="359.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" />
-                  <Button fx:id="btnReservaNuevo" layoutX="43.0" layoutY="273.0" mnemonicParsing="false" text="New" />
-                  <Button fx:id="btnReservaEditar" layoutX="96.0" layoutY="273.0" mnemonicParsing="false" text="Edit" />
-                  <Button fx:id="btnReservaGuardar" layoutX="144.0" layoutY="273.0" mnemonicParsing="false" text="Save" />
-                  <Button fx:id="btnReservaModificar" layoutX="200.0" layoutY="273.0" mnemonicParsing="false" text="Modify" />
-                  <Button fx:id="btnReservaEliminar" layoutX="359.0" layoutY="261.0" mnemonicParsing="false" text="Delete" />
-                  <Label fx:id="lblReservaMensaje" layoutX="29.0" layoutY="340.0" prefHeight="18.0" prefWidth="553.0" text="Label" />
-               </children></AnchorPane>
+                    <children>
+                        <Label layoutX="23.0" layoutY="14.0" text="Reservations">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="cbReservaSocio" layoutX="142.0" layoutY="64.0" />
+                        <TextField fx:id="cbReservaClase" layoutX="143.0" layoutY="111.0" />
+                        <TextField fx:id="tfReservaPrecioFinal" layoutX="144.0" layoutY="161.0" />
+                        <CheckBox fx:id="cbReservaPagado" layoutX="220.0" layoutY="249.0" mnemonicParsing="false" text="Pagado" />
+                        <DatePicker fx:id="dpReservaFecha" layoutX="132.0" layoutY="206.0" />
+                        <Label layoutX="64.0" layoutY="68.0" text="Partner" />
+                        <Label layoutX="69.0" layoutY="115.0" text="Class" />
+                        <Label layoutX="69.0" layoutY="165.0" text="Price" />
+                        <Label layoutX="69.0" layoutY="210.0" text="Date" />
+                        <ListView fx:id="lvReservas" layoutX="359.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button fx:id="btnReservaNuevo" layoutX="43.0" layoutY="273.0" mnemonicParsing="false" text="New" />
+                        <Button fx:id="btnReservaEditar" layoutX="96.0" layoutY="273.0" mnemonicParsing="false" text="Edit" />
+                        <Button fx:id="btnReservaGuardar" layoutX="144.0" layoutY="273.0" mnemonicParsing="false" text="Save" />
+                        <Button fx:id="btnReservaModificar" layoutX="200.0" layoutY="273.0" mnemonicParsing="false" text="Modify" />
+                        <Button fx:id="btnReservaEliminar" layoutX="359.0" layoutY="261.0" mnemonicParsing="false" text="Delete" />
+                        <Label fx:id="lblReservaMensaje" layoutX="29.0" layoutY="340.0" prefHeight="18.0" prefWidth="553.0" text="Label" />
+                    </children></AnchorPane>
             </content>
         </Tab>
     </tabs>
