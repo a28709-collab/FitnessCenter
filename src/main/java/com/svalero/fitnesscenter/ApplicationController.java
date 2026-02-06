@@ -1,127 +1,87 @@
 package com.svalero.fitnesscenter;
 
-
 import com.svalero.fitnesscenter.model.Partner;
+import com.svalero.fitnesscenter.model.Training;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import java.io.*;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ApplicationController {
+public class ApplicationController implements Initializable {
+
     @FXML private TextField tfSocioUsername, tfSocioEmail, tfSocioPhone;
     @FXML private DatePicker dpSocioFechaAlta;
-    @FXML private CheckBox cbClaseDisponible; // Este es el ID de tu CheckBox de socios
-    @FXML private ListView<Partner> lvClases;  // Este es el ID de tu ListView de socios
+    @FXML private CheckBox cbClaseDisponible;
+    @FXML private ListView<Partner> lvClases;
     @FXML private Label lblSocioMensaje;
 
-    private ObservableList<Partner> allPartners = FXCollections.observableArrayList();
-    private final String FILE_NAME = "partners.dat";
+    private ObservableList<Partner> allPartners;
 
-    @FXML
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
-        allPartners = FXCollections.observableArrayList();
-        loadData(); // Carga los datos al arrancar
+        // Carga inicial desde el repositorio
+        DataRepository.loadData();
+        allPartners = FXCollections.observableArrayList(DataRepository.getPartners());
         lvClases.setItems(allPartners);
 
-        // Al seleccionar un socio, cargamos sus datos en el formulario
-        lvClases.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) showPartner(newValue);
+        // Listener para navegar
+        lvClases.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
+            if (newV != null) showPartner(newV);
         });
     }
 
     @FXML
     public void savePartner() {
-        String username = tfSocioUsername.getText();
-        String email = tfSocioEmail.getText();
-        String phone = tfSocioPhone.getText();
-        LocalDate date = dpSocioFechaAlta.getValue();
-        boolean active = cbClaseDisponible.isSelected();
-
-        // VALIDACIÓN (Requisito: 2 campos obligatorios y 1 restricción de formato)
-        if (username.isEmpty() || email.isEmpty()) {
-            lblSocioMensaje.setText("Error: Username y Email son obligatorios.");
+        if (tfSocioUsername.getText().isEmpty() || tfSocioEmail.getText().isEmpty()) {
+            lblSocioMensaje.setText("Error: Campos obligatorios vacíos.");
             return;
         }
 
-        if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-            lblSocioMensaje.setText("Error: El formato del Email no es válido.");
-            return;
-        }
+        Partner p = new Partner(tfSocioUsername.getText(), tfSocioEmail.getText(),
+                tfSocioPhone.getText(), dpSocioFechaAlta.getValue(),
+                cbClaseDisponible.isSelected());
 
-        Partner newPartner = new Partner(username, email, phone, date, active);
-        allPartners.add(newPartner);
-        saveData(); // Guardado automático (Persistencia transparente)
+        // Guardar en Repositorio y actualizar lista visual
+        DataRepository.addPartner(p);
+        allPartners.setAll(DataRepository.getPartners());
+
         clearPartnerFields();
-        lblSocioMensaje.setText("Socio guardado con éxito.");
+        lblSocioMensaje.setText("Socio guardado en el archivo.");
     }
+
     @FXML
     public void deletePartner() {
         Partner selected = lvClases.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            allPartners.remove(selected);
-            saveData();
+            DataRepository.removePartner(selected);
+            allPartners.setAll(DataRepository.getPartners());
             lblSocioMensaje.setText("Socio eliminado.");
-        } else {
-            lblSocioMensaje.setText("Selecciona un socio en la lista para eliminar.");
-        }
-    }
-    @FXML
-    public void editPartner() {
-        // Carga los datos del socio seleccionado de la lista a los campos de texto
-        Partner selected = lvClases.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            showPartner(selected);
-            lblSocioMensaje.setText("Editando socio: " + selected.getUsername());
         }
     }
 
-    @FXML
-    public void newPartner() {
-        clearPartnerFields();
-        lblSocioMensaje.setText("Formulario de socio limpiado.");
-    }
-
-    // --- PERSISTENCIA TRANSPARENTE ---
-
-    private void saveData() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
-            oos.writeObject(new java.util.ArrayList<>(allPartners));
-        } catch (IOException e) {
-            lblSocioMensaje.setText("Error al guardar datos.");
-        }
-    }
-
-    private void loadData() {
-        File file = new File(FILE_NAME);
-        if (file.exists()) {
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-                java.util.ArrayList<Partner> loadedPartners = (java.util.ArrayList<Partner>) ois.readObject();
-                allPartners.addAll(loadedPartners);
-            } catch (Exception e) {
-                lblSocioMensaje.setText("Error al cargar datos.");
-            }
-        }
-    }
-
-    // Métodos auxiliares
-    private void showPartner(Partner partner) {
-        tfSocioUsername.setText(partner.getUsername());
-        tfSocioEmail.setText(partner.getEmail());
-        tfSocioPhone.setText(partner.getPhone());
-        dpSocioFechaAlta.setValue(partner.getDate());
-        cbClaseDisponible.setSelected(partner.isActive());
+    private void showPartner(Partner p) {
+        tfSocioUsername.setText(p.getUsername());
+        tfSocioEmail.setText(p.getEmail());
+        tfSocioPhone.setText(p.getPhone());
+        dpSocioFechaAlta.setValue(p.getDate());
+        cbClaseDisponible.setSelected(p.isActive());
     }
 
     private void clearPartnerFields() {
-        tfSocioUsername.clear();
-        tfSocioEmail.clear();
-        tfSocioPhone.clear();
-        dpSocioFechaAlta.setValue(null);
+        tfSocioUsername.clear(); tfSocioEmail.clear(); tfSocioPhone.clear();
+        dpSocioFechaAlta.setValue(null); cbClaseDisponible.setSelected(false);
     }
+
+    // Métodos para evitar errores de FXML
+    @FXML public void newPartner() { clearPartnerFields(); }
+    @FXML public void editPartner() {}
+    @FXML public void modifyPartner() {}
+    @FXML public void saveTraining() {}
+    @FXML public void newTraining() {}
+    @FXML public void editTraining() {}
+    @FXML public void modifyTraining() {}
+    @FXML public void deleteTraining() {}
 }
