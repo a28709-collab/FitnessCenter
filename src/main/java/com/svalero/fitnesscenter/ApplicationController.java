@@ -14,7 +14,7 @@ public class ApplicationController implements Initializable {
 
     @FXML private TextField tfSocioUsername, tfSocioEmail, tfSocioPhone;
     @FXML private DatePicker dpSocioFechaAlta;
-    @FXML private CheckBox cbClaseDisponible;
+    @FXML private CheckBox cbSocioActivo;
     @FXML private ListView<Partner> lvClases;
     @FXML private Label lblSocioMensaje;
 
@@ -53,7 +53,9 @@ public class ApplicationController implements Initializable {
             editingPartner.setEmail(tfSocioEmail.getText());
             editingPartner.setPhone(tfSocioPhone.getText());
             editingPartner.setDate(dpSocioFechaAlta.getValue());
-            editingPartner.setActive(cbClaseDisponible.isSelected());
+            editingPartner.setActive(cbSocioActivo.isSelected());
+
+
 
             DataRepository.saveData(); // ✅ guardar cambios
 
@@ -65,7 +67,8 @@ public class ApplicationController implements Initializable {
                     tfSocioEmail.getText(),
                     tfSocioPhone.getText(),
                     dpSocioFechaAlta.getValue(),
-                    cbClaseDisponible.isSelected()
+                    cbSocioActivo.isSelected()
+
             );
 
             DataRepository.addPartner(p);
@@ -93,12 +96,14 @@ public class ApplicationController implements Initializable {
         tfSocioEmail.setText(p.getEmail());
         tfSocioPhone.setText(p.getPhone());
         dpSocioFechaAlta.setValue(p.getDate());
-        cbClaseDisponible.setSelected(p.isActive());
+        cbSocioActivo.setSelected(p.isActive());
+
     }
 
     private void clearPartnerFields() {
         tfSocioUsername.clear(); tfSocioEmail.clear(); tfSocioPhone.clear();
-        dpSocioFechaAlta.setValue(null); cbClaseDisponible.setSelected(false);
+        dpSocioFechaAlta.setValue(null); cbSocioActivo.setSelected(false);
+
     }
 
     // Métodos para evitar errores de FXML
