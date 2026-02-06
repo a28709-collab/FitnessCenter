@@ -14,6 +14,10 @@
         <Menu text="View">
             <MenuItem text="Tables (Partners &amp; Trainings)" onAction="#openTablesView"/>
         </Menu>
+
+        <Menu text="Export">
+            <MenuItem text="Export JSON" onAction="#exportJson"/>
+        </Menu>
     </MenuBar>
 
     <!-- ✅ TU TABPANE ORIGINAL -->
