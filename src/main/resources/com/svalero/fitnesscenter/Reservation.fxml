@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.svalero.fitnesscenter.ReservationController">
+
+    <children>
+        <Label layoutX="23.0" layoutY="14.0" text="Reservations">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="64.0" layoutY="68.0" text="Partner" />
+        <ComboBox fx:id="cbReservaSocio" layoutX="142.0" layoutY="64.0" prefWidth="180.0" />
+
+        <Label layoutX="69.0" layoutY="115.0" text="Class" />
+        <ComboBox fx:id="cbReservaClase" layoutX="143.0" layoutY="111.0" prefWidth="180.0" />
+
+        <Label layoutX="69.0" layoutY="165.0" text="Price" />
+        <TextField fx:id="tfReservaPrecioFinal" layoutX="144.0" layoutY="161.0" />
+
+        <Label layoutX="69.0" layoutY="210.0" text="Date" />
+        <DatePicker fx:id="dpReservaFecha" layoutX="132.0" layoutY="206.0" />
+
+        <CheckBox fx:id="cbReservaPagado" layoutX="220.0" layoutY="249.0"
+                  mnemonicParsing="false" text="Pagado" />
+
+        <ListView fx:id="lvReservas" layoutX="359.0" layoutY="50.0"
+                  prefHeight="200.0" prefWidth="200.0" />
+
+        <Button fx:id="btnReservaNuevo" layoutX="43.0" layoutY="273.0"
+                mnemonicParsing="false" text="New" onAction="#newReservation" />
+
+        <Button fx:id="btnReservaGuardar" layoutX="144.0" layoutY="273.0"
+                mnemonicParsing="false" text="Save" onAction="#saveReservation" />
+
+        <Button fx:id="btnReservaEliminar" layoutX="359.0" layoutY="261.0"
+                mnemonicParsing="false" text="Delete" onAction="#deleteReservation" />
+
+        <Label fx:id="lblReservaMensaje" layoutX="29.0" layoutY="340.0"
+               prefHeight="18.0" prefWidth="553.0" text="Label" />
+    </children>
+</AnchorPane>
