@@ -18,6 +18,7 @@ public class ApplicationController implements Initializable {
     @FXML private ListView<Partner> lvClases;
     @FXML private Label lblSocioMensaje;
 
+
     private Partner editingPartner = null;
 
     private ObservableList<Partner> allPartners;
