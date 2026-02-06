@@ -1,85 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ComboBox?>
 
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.svalero.fitnesscenter.ApplicationController">
 
+    <!-- ✅ MENU SUPERIOR -->
+    <MenuBar>
+        <Menu text="View">
+            <MenuItem text="Tables (Partners &amp; Trainings)" onAction="#openTablesView"/>
+        </Menu>
+    </MenuBar>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17"
-         xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.svalero.fitnesscenter.ApplicationController">
-  <tabs>
-      <Tab text="Socios">
-          <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0">
-                  <children>
+    <!-- ✅ TU TABPANE ORIGINAL -->
+    <TabPane tabClosingPolicy="UNAVAILABLE" prefHeight="400.0" prefWidth="600.0">
+        <tabs>
 
-                      <Label fx:id="lblSocioMensaje" layoutX="14.0" layoutY="338.0"
-                             prefHeight="18.0" prefWidth="572.0" text="Label" />
+            <Tab text="Socios">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0">
+                        <children>
 
-                      <Label layoutX="50.0" layoutY="22.0" prefHeight="26.0" prefWidth="87.0" text="Socios">
-                          <font>
-                              <Font size="25.0" />
-                          </font>
-                      </Label>
+                            <Label fx:id="lblSocioMensaje" layoutX="14.0" layoutY="338.0"
+                                   prefHeight="18.0" prefWidth="572.0" text="Label" />
 
-                      <TextField fx:id="tfSocioUsername" layoutX="127.0" layoutY="76.0" />
-                      <TextField fx:id="tfSocioEmail" layoutX="127.0" layoutY="114.0" />
-                      <TextField fx:id="tfSocioPhone" layoutX="128.0" layoutY="161.0" />
+                            <Label layoutX="50.0" layoutY="22.0" prefHeight="26.0" prefWidth="87.0" text="Socios">
+                                <font>
+                                    <Font size="25.0" />
+                                </font>
+                            </Label>
 
-                      <Label layoutX="40.0" layoutY="80.0" text="Username" />
-                      <Label layoutX="48.0" layoutY="118.0" text="Email" />
-                      <Label layoutX="56.0" layoutY="165.0" text="Phone" />
+                            <TextField fx:id="tfSocioUsername" layoutX="127.0" layoutY="76.0" />
+                            <TextField fx:id="tfSocioEmail" layoutX="127.0" layoutY="114.0" />
+                            <TextField fx:id="tfSocioPhone" layoutX="128.0" layoutY="161.0" />
 
-                      <ListView fx:id="lvClases" layoutX="377.0" layoutY="40.0"
-                                prefHeight="200.0" prefWidth="200.0" />
+                            <Label layoutX="40.0" layoutY="80.0" text="Username" />
+                            <Label layoutX="48.0" layoutY="118.0" text="Email" />
+                            <Label layoutX="56.0" layoutY="165.0" text="Phone" />
 
-                      <Button fx:id="btnSocioEliminar" onAction="#deletePartner"
-                              layoutX="377.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
+                            <ListView fx:id="lvClases" layoutX="377.0" layoutY="40.0"
+                                      prefHeight="200.0" prefWidth="200.0" />
 
-                      <Button fx:id="btnSocioNuevo" onAction="#newPartner"
-                              layoutX="28.0" layoutY="293.0" mnemonicParsing="false" text="New" />
+                            <Button fx:id="btnSocioEliminar" onAction="#deletePartner"
+                                    layoutX="377.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
 
-                      <Button fx:id="btnSocioGuardar" onAction="#savePartner"
-                              layoutX="161.0" layoutY="293.0" mnemonicParsing="false" text="Save" />
+                            <Button fx:id="btnSocioNuevo" onAction="#newPartner"
+                                    layoutX="28.0" layoutY="293.0" mnemonicParsing="false" text="New" />
 
-                      <Button fx:id="btnSocioModificar"
-                              layoutX="225.0" layoutY="293.0"
-                              mnemonicParsing="false" text="Modify"
-                              onAction="#modifyPartner" />
+                            <Button fx:id="btnSocioEditar" onAction="#modifyPartner"
+                                    layoutX="96.0" layoutY="293.0" mnemonicParsing="false" text="Edit" />
 
+                            <Button fx:id="btnSocioGuardar" onAction="#savePartner"
+                                    layoutX="161.0" layoutY="293.0" mnemonicParsing="false" text="Save" />
 
-                      <!-- ✅ RENOMBRADO para no repetir fx:id -->
-                      <CheckBox fx:id="cbSocioActivo" layoutX="224.0" layoutY="247.0"
-                                mnemonicParsing="false" text="Active" />
+                            <Button fx:id="btnSocioModificar"
+                                    layoutX="225.0" layoutY="293.0"
+                                    mnemonicParsing="false" text="Modify"
+                                    onAction="#modifyPartner" />
 
-                      <DatePicker fx:id="dpSocioFechaAlta" layoutX="114.0" layoutY="207.0" />
-                      <Label layoutX="48.0" layoutY="211.0" text="Date" />
+                            <CheckBox fx:id="cbSocioActivo" layoutX="224.0" layoutY="247.0"
+                                      mnemonicParsing="false" text="Active" />
 
-                  </children>
-              </AnchorPane>
-          </content>
-      </Tab>
+                            <DatePicker fx:id="dpSocioFechaAlta" layoutX="114.0" layoutY="207.0" />
+                            <Label layoutX="48.0" layoutY="211.0" text="Date" />
 
-      <Tab text="Clases">
-          <content>
-              <fx:include source="Training.fxml"/>
-          </content>
-      </Tab>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
 
-      <Tab text="Reserva">
-          <content>
-              <fx:include source="Reservation.fxml"/>
-          </content>
-      </Tab>
+            <Tab text="Clases">
+                <content>
+                    <fx:include source="Training.fxml"/>
+                </content>
+            </Tab>
 
-  </tabs>
-</TabPane>
+            <Tab text="Reserva">
+                <content>
+                    <fx:include source="Reservation.fxml"/>
+                </content>
+            </Tab>
+
+        </tabs>
+    </TabPane>
+
+</VBox>
