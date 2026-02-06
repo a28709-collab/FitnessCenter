@@ -5,8 +5,12 @@ import com.svalero.fitnesscenter.model.Training;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -26,6 +30,7 @@ public class ApplicationController implements Initializable {
     @Override
 
     public void initialize(URL url, ResourceBundle rb) {
+
         DataRepository.loadData();
         allPartners = FXCollections.observableArrayList(DataRepository.getPartners());
         lvClases.setItems(allPartners);
@@ -104,6 +109,23 @@ public class ApplicationController implements Initializable {
         setFormDisabled(false);
         lblSocioMensaje.setText("Editando socio... (pulsa Save para guardar)");
     }
+
+    @FXML
+    public void openTablesView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Application.class.getResource("Tables.fxml"));
+            Scene scene = new Scene(loader.load(), 900, 600);
+
+            Stage stage = new Stage();
+            stage.setTitle("Tables View");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

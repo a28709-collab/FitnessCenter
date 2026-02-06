@@ -80,6 +80,7 @@ public class DataRepository {
 
     @SuppressWarnings("unchecked")
     public static void loadData() {
+
         File file = new File(FILE_PATH);
         if (!file.exists()) return;
 
@@ -98,6 +99,20 @@ public class DataRepository {
             e.printStackTrace();
         }
     }
+    public static void resetDataFile() {
+        File file = new File(FILE_PATH);
+        if (file.exists()) {
+            boolean deleted = file.delete();
+            System.out.println("BORRADO: " + file.getAbsolutePath() + " -> " + deleted);
+        } else {
+            System.out.println("NO EXISTE: " + file.getAbsolutePath());
+        }
+
+        partners = new ArrayList<>();
+        trainings = new ArrayList<>();
+        reservations = new ArrayList<>();
+    }
+
 
     // ===== IDS =====
     private static int getNextPartnerId() {

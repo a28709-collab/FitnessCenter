@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.svalero.fitnesscenter.TablesController"
+      spacing="8.0" prefWidth="900.0" prefHeight="600.0">
+
+    <Label text="Tables View (Partners &amp; Trainings)" style="-fx-font-size: 18px; -fx-padding: 10 0 0 10;" />
+
+    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+
+        <!-- ================= PARTNERS ================= -->
+        <Tab text="Partners">
+            <AnchorPane>
+                <children>
+                    <TableView fx:id="tvPartners" layoutX="10.0" layoutY="10.0"
+                               prefWidth="880.0" prefHeight="520.0">
+
+                        <columns>
+                            <TableColumn fx:id="colPartnerId" text="ID" prefWidth="60.0"/>
+                            <TableColumn fx:id="colPartnerUsername" text="Username" prefWidth="180.0"/>
+                            <TableColumn fx:id="colPartnerEmail" text="Email" prefWidth="220.0"/>
+                            <TableColumn fx:id="colPartnerPhone" text="Phone" prefWidth="140.0"/>
+                            <TableColumn fx:id="colPartnerDate" text="Date" prefWidth="120.0"/>
+                            <TableColumn fx:id="colPartnerActive" text="Active" prefWidth="80.0"/>
+                        </columns>
+
+                    </TableView>
+
+                    <Button text="Refresh" layoutX="10.0" layoutY="540.0" onAction="#refreshTables"/>
+                </children>
+            </AnchorPane>
+        </Tab>
+
+        <!-- ================= TRAININGS ================= -->
+        <Tab text="Trainings">
+            <AnchorPane>
+                <children>
+                    <TableView fx:id="tvTrainings" layoutX="10.0" layoutY="10.0"
+                               prefWidth="880.0" prefHeight="520.0">
+
+                        <columns>
+                            <TableColumn fx:id="colTrainingId" text="ID" prefWidth="60.0"/>
+                            <TableColumn fx:id="colTrainingName" text="Name" prefWidth="200.0"/>
+                            <TableColumn fx:id="colTrainingCoach" text="Coach" prefWidth="180.0"/>
+                            <TableColumn fx:id="colTrainingDuration" text="Duration (min)" prefWidth="120.0"/>
+                            <TableColumn fx:id="colTrainingPrice" text="Price (€)" prefWidth="110.0"/>
+                            <TableColumn fx:id="colTrainingDate" text="Date" prefWidth="120.0"/>
+                            <TableColumn fx:id="colTrainingAvailable" text="Available" prefWidth="90.0"/>
+                        </columns>
+
+                    </TableView>
+
+                    <Button text="Refresh" layoutX="10.0" layoutY="540.0" onAction="#refreshTables"/>
+                </children>
+            </AnchorPane>
+        </Tab>
+
+    </TabPane>
+
+</VBox>
