@@ -65,15 +65,20 @@ public class ReservationController implements Initializable {
             if (newV != null) {
                 editingReservation = newV;
                 showReservation(newV);
-                lblReservaMensaje.setText("Editando reserva...");
+                setFormDisabled(true);
+                lblReservaMensaje.setText("Reserva seleccionada. Pulsa Modify para editar.");
             }
         });
+
 
         if (allPartners.isEmpty() || allTrainings.isEmpty()) {
             lblReservaMensaje.setText("⚠️ Crea socios y clases antes de reservar.");
         } else {
             lblReservaMensaje.setText("Listo para reservar.");
         }
+        clearFields();
+        setFormDisabled(true);
+
     }
     public void refreshCombos() {
         DataRepository.loadData();
@@ -89,12 +94,18 @@ public class ReservationController implements Initializable {
 
         refreshCombos();
 
+        setFormDisabled(false);
         lblReservaMensaje.setText("Nueva reserva");
     }
 
     @FXML
     public void saveReservation() {
         refreshCombos();
+
+        if (editingReservation != null && cbReservaSocio.isDisabled()) {
+            lblReservaMensaje.setText("Pulsa Modify antes de guardar cambios.");
+            return;
+        }
 
         Partner partner = cbReservaSocio.getValue();
         Training training = cbReservaClase.getValue();
@@ -127,7 +138,6 @@ public class ReservationController implements Initializable {
             DataRepository.saveData();
             lblReservaMensaje.setText("Reserva actualizada.");
         } else {
-            // ✅ NUEVA
             Reservation r = new Reservation(partner.getId(), training.getId(), paid, finalPrice, date);
             DataRepository.addReservation(r);
             lblReservaMensaje.setText("Reserva creada.");
@@ -135,9 +145,28 @@ public class ReservationController implements Initializable {
 
         allReservations.setAll(DataRepository.getReservations());
         lvReservas.refresh();
+
         clearFields();
         editingReservation = null;
         lvReservas.getSelectionModel().clearSelection();
+        setFormDisabled(true);
+    }
+
+
+    @FXML
+    public void modifyReservation() {
+        Reservation selected = lvReservas.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            lblReservaMensaje.setText("Selecciona una reserva para modificar.");
+            return;
+        }
+
+        editingReservation = selected;
+        showReservation(selected);
+        setFormDisabled(false);
+
+        lblReservaMensaje.setText("Editando reserva... (pulsa Save para guardar)");
     }
 
     @FXML
@@ -155,6 +184,7 @@ public class ReservationController implements Initializable {
         editingReservation = null;
         lvReservas.getSelectionModel().clearSelection();
         clearFields();
+        setFormDisabled(true);
 
         lblReservaMensaje.setText("Reserva eliminada.");
     }
@@ -166,6 +196,15 @@ public class ReservationController implements Initializable {
         cbReservaPagado.setSelected(r.isPaid());
         dpReservaFecha.setValue(r.getDate());
     }
+
+    private void setFormDisabled(boolean disabled) {
+        cbReservaSocio.setDisable(disabled);
+        cbReservaClase.setDisable(disabled);
+        tfReservaPrecioFinal.setDisable(disabled);
+        cbReservaPagado.setDisable(disabled);
+        dpReservaFecha.setDisable(disabled);
+    }
+
 
     private void clearFields() {
         cbReservaSocio.setValue(null);
