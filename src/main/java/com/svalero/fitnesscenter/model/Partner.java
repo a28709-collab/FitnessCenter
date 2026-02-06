@@ -1,8 +1,9 @@
 package com.svalero.fitnesscenter.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Partner {
+public class Partner implements Serializable {
 
     private String username;
     private String email;
@@ -32,5 +33,10 @@ public class Partner {
 
  public boolean isActive(){return active;}
  public void setActive(boolean active){this.active= active;}
+
+    @Override
+    public String toString() {
+        return username + " (" + email + ")";
+    }
 
 }
