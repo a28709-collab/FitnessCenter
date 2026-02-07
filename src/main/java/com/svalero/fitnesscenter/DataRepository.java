@@ -112,7 +112,7 @@ public class DataRepository {
                 reservations = new ArrayList<>();
             }
 
-            // ✅ Asignar IDs a reservas antiguas (id=0)
+            //Asignar IDs a reservas antiguas
             int maxId = 0;
             for (Reservation r : reservations) {
                 if (r.getId() > maxId) maxId = r.getId();
@@ -133,9 +133,9 @@ public class DataRepository {
         File file = new File(FILE_PATH);
         if (file.exists()) {
             boolean deleted = file.delete();
-            System.out.println("BORRADO: " + file.getAbsolutePath() + " -> " + deleted);
+            System.out.println("ERASED: " + file.getAbsolutePath() + " -> " + deleted);
         } else {
-            System.out.println("NO EXISTE: " + file.getAbsolutePath());
+            System.out.println("IT DOES NOT EXIST: " + file.getAbsolutePath());
         }
 
         partners = new ArrayList<>();

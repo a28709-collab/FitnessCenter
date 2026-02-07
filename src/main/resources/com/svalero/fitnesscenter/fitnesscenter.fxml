@@ -9,7 +9,7 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.svalero.fitnesscenter.ApplicationController">
 
-    <!-- ✅ MENU SUPERIOR -->
+    <!--MENU SUPERIOR -->
     <MenuBar>
         <Menu text="View">
             <MenuItem text="Tables (Partners &amp; Trainings)" onAction="#openTablesView"/>
@@ -20,7 +20,7 @@
         </Menu>
     </MenuBar>
 
-    <!-- ✅ TU TABPANE ORIGINAL -->
+    <!--TABPANE -->
     <TabPane tabClosingPolicy="UNAVAILABLE" prefHeight="400.0" prefWidth="600.0">
         <tabs>
 
@@ -32,7 +32,7 @@
                             <Label fx:id="lblSocioMensaje" layoutX="14.0" layoutY="338.0"
                                    prefHeight="18.0" prefWidth="572.0" text="Label" />
 
-                            <Label layoutX="50.0" layoutY="22.0" prefHeight="26.0" prefWidth="87.0" text="Socios">
+                            <Label layoutX="50.0" layoutY="22.0" prefHeight="26.0" prefWidth="87.0" text="Partner">
                                 <font>
                                     <Font size="25.0" />
                                 </font>
