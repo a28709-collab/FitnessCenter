@@ -1,11 +1,20 @@
 [
   {
     "id": 1,
-    "name": "zumba",
+    "name": "Zumba",
     "coach": "pepe",
     "duration": 60,
     "price": 23.0,
     "date": "2026-02-03",
+    "available": true
+  },
+  {
+    "id": 2,
+    "name": "Crossfit",
+    "coach": "Mario",
+    "duration": 60,
+    "price": 50.0,
+    "date": "2026-02-11",
     "available": true
   }
 ]

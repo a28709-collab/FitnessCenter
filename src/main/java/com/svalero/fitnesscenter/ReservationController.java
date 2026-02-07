@@ -54,7 +54,7 @@ public class ReservationController implements Initializable {
                     String ps = (p != null) ? p.toString() : ("PartnerId=" + r.getPartnerId());
                     String ts = (t != null) ? t.toString() : ("TrainingId=" + r.getTrainingId());
                     setText(ps + " | " + ts + " | " + r.getDate()
-                            + " | Paid: " + (r.isPaid() ? "Sí" : "No")
+                            + " | Paid: " + (r.isPaid() ? "Yes" : "No")
                             + " | Price: " + r.getFinalPrice());
                 }
             }
