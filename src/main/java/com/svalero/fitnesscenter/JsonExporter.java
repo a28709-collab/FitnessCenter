@@ -70,6 +70,39 @@ public class JsonExporter {
         }
     }
 
+    // RESERVATIONS
+
+    public static void exportReservations(
+            List<com.svalero.fitnesscenter.model.Reservation> reservations,
+            String filename) throws Exception {
+
+        StringBuilder json = new StringBuilder();
+        json.append("[\n");
+
+        for (int i = 0; i < reservations.size(); i++) {
+            var r = reservations.get(i);
+
+            json.append("  {\n");
+            json.append("    \"id\": ").append(r.getId()).append(",\n");
+            json.append("    \"partnerId\": ").append(r.getPartnerId()).append(",\n");
+            json.append("    \"trainingId\": ").append(r.getTrainingId()).append(",\n");
+            json.append("    \"paid\": ").append(r.isPaid()).append(",\n");
+            json.append("    \"finalPrice\": ").append(r.getFinalPrice()).append(",\n");
+            json.append("    \"date\": \"").append(formatDate(r.getDate())).append("\"\n");
+            json.append("  }");
+
+            if (i < reservations.size() - 1) json.append(",");
+            json.append("\n");
+        }
+
+        json.append("]\n");
+
+        try (FileWriter fw = new FileWriter(filename)) {
+            fw.write(json.toString());
+        }
+    }
+
+
     // UTILS
 
     private static String escape(String text) {
