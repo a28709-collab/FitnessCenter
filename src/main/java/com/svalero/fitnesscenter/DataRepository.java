@@ -44,14 +44,32 @@ public class DataRepository {
 
     // ===== RESERVATIONS =====
     public static void addReservation(Reservation r) {
+        if (r.getId() == 0) r.setId(getNextReservationId());
         reservations.add(r);
         saveData();
     }
 
+    public static void updateReservation(Reservation updated) {
+        for (int i = 0; i < reservations.size(); i++) {
+            if (reservations.get(i).getId() == updated.getId()) {
+                reservations.set(i, updated);
+                saveData();
+                return;
+            }
+        }
+    }
+
+    private static int getNextReservationId() {
+        int max = 0;
+        for (Reservation r : reservations) if (r.getId() > max) max = r.getId();
+        return max + 1;
+    }
+
     public static void removeReservation(Reservation r) {
-        reservations.remove(r);
+        reservations.removeIf(x -> x.getId() == r.getId());
         saveData();
     }
+
 
     public static Partner findPartnerById(int id) {
         for (Partner p : partners) {
@@ -88,17 +106,29 @@ public class DataRepository {
             partners = (List<Partner>) ois.readObject();
             trainings = (List<Training>) ois.readObject();
 
-            // compatible si el fichero antiguo no tenía reservas
             try {
                 reservations = (List<Reservation>) ois.readObject();
             } catch (EOFException eof) {
                 reservations = new ArrayList<>();
             }
 
+            // ✅ Asignar IDs a reservas antiguas (id=0)
+            int maxId = 0;
+            for (Reservation r : reservations) {
+                if (r.getId() > maxId) maxId = r.getId();
+            }
+            for (Reservation r : reservations) {
+                if (r.getId() == 0) r.setId(++maxId);
+            }
+
+            saveData(); // deja el fichero ya “arreglado”
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
     public static void resetDataFile() {
         File file = new File(FILE_PATH);
         if (file.exists()) {

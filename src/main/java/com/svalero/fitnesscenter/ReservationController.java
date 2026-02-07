@@ -31,8 +31,6 @@ public class ReservationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Cargamos una vez (si ya estaba cargado no pasa nada)
-        DataRepository.loadData();
 
         allPartners = FXCollections.observableArrayList(DataRepository.getPartners());
         allTrainings = FXCollections.observableArrayList(DataRepository.getTrainings());
@@ -100,7 +98,6 @@ public class ReservationController implements Initializable {
 
     @FXML
     public void saveReservation() {
-        refreshCombos();
 
         if (editingReservation != null && cbReservaSocio.isDisabled()) {
             lblReservaMensaje.setText("Pulsa Modify antes de guardar cambios.");
@@ -119,45 +116,41 @@ public class ReservationController implements Initializable {
         float finalPrice;
         try {
             String txt = tfReservaPrecioFinal.getText().trim();
-            if (txt.isEmpty()) {
-                finalPrice = 0f;
-            } else {
-                finalPrice = Float.parseFloat(txt.replace(",", "."));
-            }
+            finalPrice = txt.isEmpty() ? 0f : Float.parseFloat(txt.replace(",", "."));
         } catch (Exception e) {
-            lblReservaMensaje.setText("Error: precio final inválido (ej: 10.5).");
-            return;
-        }
-
-        if (finalPrice < 0) {
-            lblReservaMensaje.setText("Error: el precio final no puede ser negativo.");
+            lblReservaMensaje.setText("Error: precio final inválido.");
             return;
         }
 
         boolean paid = cbReservaPagado.isSelected();
 
         if (editingReservation != null) {
-            editingReservation.setPartnerId(partner.getId());
-            editingReservation.setTrainingId(training.getId());
-            editingReservation.setPaid(paid);
-            editingReservation.setFinalPrice(finalPrice);
-            editingReservation.setDate(date);
 
-            DataRepository.saveData();
+            Reservation updated = new Reservation(
+                    partner.getId(),
+                    training.getId(),
+                    paid,
+                    finalPrice,
+                    date
+            );
+            updated.setId(editingReservation.getId());
+            DataRepository.updateReservation(updated);
+
             lblReservaMensaje.setText("Reserva actualizada.");
+
         } else {
             Reservation r = new Reservation(partner.getId(), training.getId(), paid, finalPrice, date);
             DataRepository.addReservation(r);
             lblReservaMensaje.setText("Reserva creada.");
         }
 
-        allReservations.setAll(DataRepository.getReservations());
-        lvReservas.refresh();
-
-        clearFields();
         editingReservation = null;
         lvReservas.getSelectionModel().clearSelection();
+        clearFields();
         setFormDisabled(true);
+
+        allReservations.setAll(DataRepository.getReservations());
+        lvReservas.refresh();
     }
 
     @FXML
