@@ -153,16 +153,26 @@ public class ApplicationController implements Initializable {
             e.printStackTrace();
         }
     }
-
     @FXML
     public void exportJson() {
         try {
             DataRepository.loadData();
 
-            JsonExporter.exportPartners(DataRepository.getPartners(), "partners.json");
-            JsonExporter.exportTrainings(DataRepository.getTrainings(), "trainings.json");
+            String desktopPath = System.getProperty("user.home") + "\\Desktop\\";
 
-            lblSocioMensaje.setText("JSON export completed: partners.json y trainings.json");
+            JsonExporter.exportPartners(
+                    DataRepository.getPartners(),
+                    desktopPath + "partners.json"
+            );
+
+            JsonExporter.exportTrainings(
+                    DataRepository.getTrainings(),
+                    desktopPath + "trainings.json"
+            );
+
+            lblSocioMensaje.setText(
+                    "JSON export completed en el Escritorio:\npartners.json y trainings.json"
+            );
 
         } catch (Exception e) {
             e.printStackTrace();
