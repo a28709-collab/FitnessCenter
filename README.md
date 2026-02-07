@@ -18,7 +18,14 @@ Este proyecto es una aplicación de escritorio desarrollada en **JavaFX** para l
     * Lógica de Negocio: El precio y la duración no pueden ser valores negativos.
     * Control de Errores: Validación de tipos numéricos mediante bloques `try-catch`.
 
-### 3. Persistencia de Datos
+### 3. Sistema de Reservas (Reservations) 🆕
+* **Conectividad**: Relaciona socios existentes con clases disponibles mediante el uso de `ComboBox`.
+* **Gestión de Estados**: Permite marcar reservas como pagadas y asignar precios finales personalizados.
+* **Seguridad de Interfaz**:
+    * Deshabilitación dinámica de controles (`setFormDisabled`) para evitar ediciones accidentales sin pulsar el botón "Modify".
+    * Validación cruzada: Impide crear reservas si no se ha seleccionado un socio, una clase y una fecha.
+
+### 4. Persistencia de Datos
 * La aplicación utiliza **Serialización de Objetos** para guardar la información en un archivo local llamado `fitness_data.dat`. Los datos se cargan automáticamente al iniciar y se guardan tras cada operación de escritura.
 
 ---
