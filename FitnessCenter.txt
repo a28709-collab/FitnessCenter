@@ -1,0 +1,14 @@
+socio
+socio(#id, username UQ, email UQ, telefono, fecha_alta, activo)
+
+clase
+clase(#id, nombre, entrenador, duracion, precio, fecha, disponible)
+
+reserva
+reserva(#id, fecha_reserva, pagado, precio_final, id_socio FK -> socio.id, id_clase FK -> clase.id)
+
+reserva(#id, fecha_reserva, pagado, precio_final,
+        id_socio FK -> socio.id,
+        id_clase FK -> clase.id,
+        UQ(id_socio, id_clase, fecha_reserva))
+
