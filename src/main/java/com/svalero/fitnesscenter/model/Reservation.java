@@ -6,6 +6,8 @@ import java.time.LocalDate;
 public class Reservation implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private int id;
+
     private int partnerId;
     private int trainingId;
     private boolean paid;
@@ -19,6 +21,9 @@ public class Reservation implements Serializable {
         this.finalPrice = finalPrice;
         this.date = date;
     }
+
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
 
     public int getPartnerId() { return partnerId; }
     public void setPartnerId(int partnerId) { this.partnerId = partnerId; }
