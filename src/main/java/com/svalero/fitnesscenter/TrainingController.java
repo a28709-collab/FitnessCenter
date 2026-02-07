@@ -44,14 +44,14 @@ public class TrainingController implements Initializable {
             if (newV != null) {
                 editingTraining = newV;
                 showTraining(newV);
-                lblClaseMensaje.setText("Clase seleccionada. Pulsa Modify para editar.");
+                lblClaseMensaje.setText("Selected class. Press Modify to edit.");
                 setFormDisabled(true);
             }
         });
 
         clearFields();
         setFormDisabled(true);
-        lblClaseMensaje.setText("Listo para crear clases.");
+        lblClaseMensaje.setText("Ready to create classes.");
     }
 
     @FXML
@@ -60,14 +60,14 @@ public class TrainingController implements Initializable {
         lvClasesGym.getSelectionModel().clearSelection();
         clearFields();
         setFormDisabled(false);
-        lblClaseMensaje.setText("Nueva clase");
+        lblClaseMensaje.setText("New class");
     }
 
     @FXML
     public void saveTraining() {
 
         if (editingTraining != null && tfClaseNombre.isDisabled()) {
-            lblClaseMensaje.setText("Pulsa Modify antes de guardar cambios.");
+            lblClaseMensaje.setText("Press Modify before saving changes.");
             return;
         }
 
@@ -76,23 +76,23 @@ public class TrainingController implements Initializable {
         LocalDate date = dpClaseFecha.getValue();
 
         if (name.isEmpty() || coach.isEmpty() || date == null) {
-            lblClaseMensaje.setText("Error: Name, Coach y Date son obligatorios.");
+            lblClaseMensaje.setText("Error: Name, Coach and Date are required.");
             return;
         }
 
         if (name.length() < 3) {
-            lblClaseMensaje.setText("Error: Name debe tener al menos 3 caracteres.");
+            lblClaseMensaje.setText("Error: Name must have at least 3 characters.");
             return;
         }
 
         if (coach.length() < 3) {
-            lblClaseMensaje.setText("Error: Coach debe tener al menos 3 caracteres.");
+            lblClaseMensaje.setText("Error: Coach must have at least 3 characters.");
             return;
         }
 
         int duration = spClaseDuracion.getValue();
         if (duration <= 0) {
-            lblClaseMensaje.setText("Error: Duration debe ser mayor que 0.");
+            lblClaseMensaje.setText("Error: Duration must be greater than 0.");
             return;
         }
 
@@ -100,12 +100,12 @@ public class TrainingController implements Initializable {
         try {
             price = Float.parseFloat(tfClasePrecio.getText().trim().replace(",", "."));
         } catch (Exception e) {
-            lblClaseMensaje.setText("Error: precio inválido (ej: 12.5).");
+            lblClaseMensaje.setText("Error: Invalid price (e.g., 12.5).");
             return;
         }
 
         if (price <= 0) {
-            lblClaseMensaje.setText("Error: el precio debe ser mayor que 0.");
+            lblClaseMensaje.setText("Error: the price must be greater than 0.");
             return;
         }
 
@@ -120,11 +120,11 @@ public class TrainingController implements Initializable {
             editingTraining.setAvailable(available);
 
             DataRepository.saveData();
-            lblClaseMensaje.setText("Clase actualizada.");
+            lblClaseMensaje.setText("Updated class.");
         } else {
             Training t = new Training(name, coach, duration, price, date, available);
             DataRepository.addTraining(t);
-            lblClaseMensaje.setText("Clase creada.");
+            lblClaseMensaje.setText("Created class.");
         }
 
         allTrainings.setAll(DataRepository.getTrainings());
@@ -141,14 +141,14 @@ public class TrainingController implements Initializable {
         Training selected = lvClasesGym.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
-            lblClaseMensaje.setText("Selecciona una clase para modificar.");
+            lblClaseMensaje.setText("Select a class to modify.");
             return;
         }
 
         editingTraining = selected;
         showTraining(selected);
         setFormDisabled(false);
-        lblClaseMensaje.setText("Editando clase... (pulsa Save para guardar)");
+        lblClaseMensaje.setText("Editing class... (press Save to save)");
     }
 
 
@@ -157,7 +157,7 @@ public class TrainingController implements Initializable {
     public void deleteTraining() {
         Training selected = lvClasesGym.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            lblClaseMensaje.setText("Selecciona una clase para eliminar.");
+            lblClaseMensaje.setText("Select a class to delete.");
             return;
         }
         DataRepository.removeTraining(selected);
@@ -169,7 +169,7 @@ public class TrainingController implements Initializable {
         clearFields();
         setFormDisabled(true);
 
-        lblClaseMensaje.setText("Clase eliminada.");
+        lblClaseMensaje.setText("Class removed.");
 
     }
     private void setFormDisabled(boolean disabled) {

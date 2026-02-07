@@ -47,12 +47,12 @@ public class ApplicationController implements Initializable {
                 editingPartner = newV;
                 showPartner(newV);
                 setFormDisabled(true);
-                lblSocioMensaje.setText("Socio seleccionado. Pulsa Modify para editar.");
+                lblSocioMensaje.setText("Selected partner. Tap Modify to edit.");
             }
         });
         clearPartnerFields();
         setFormDisabled(true);
-        lblSocioMensaje.setText("Listo para crear socios.");
+        lblSocioMensaje.setText("Ready to create partners.");
 
     }
 
@@ -60,7 +60,7 @@ public class ApplicationController implements Initializable {
     public void savePartner() {
 
         if (editingPartner != null && tfSocioUsername.isDisabled()) {
-            lblSocioMensaje.setText("Pulsa Modify antes de guardar cambios.");
+            lblSocioMensaje.setText("Press Modify before saving changes.");
             return;
         }
 
@@ -69,22 +69,22 @@ public class ApplicationController implements Initializable {
         String phone = tfSocioPhone.getText().trim();
 
         if (username.isEmpty() || email.isEmpty()) {
-            lblSocioMensaje.setText("Error: Username y Email son obligatorios.");
+            lblSocioMensaje.setText("Error: Username and Email are required.");
             return;
         }
 
         if (username.length() < 3) {
-            lblSocioMensaje.setText("Error: Username debe tener al menos 3 caracteres.");
+            lblSocioMensaje.setText("Error: Username must be at least 3 characters long.");
             return;
         }
 
         if (!EMAIL_PATTERN.matcher(email).matches()) {
-            lblSocioMensaje.setText("Error: Email inválido (ej: nombre@correo.com).");
+            lblSocioMensaje.setText("Error: Invalid email (example: name@email.com).");
             return;
         }
 
         if (!phone.isEmpty() && !PHONE_PATTERN.matcher(phone).matches()) {
-            lblSocioMensaje.setText("Error: Teléfono inválido (debe tener 9 dígitos).");
+            lblSocioMensaje.setText("Error: Invalid phone number (must have 9 digits).");
             return;
         }
 
@@ -98,7 +98,7 @@ public class ApplicationController implements Initializable {
             editingPartner.setActive(cbSocioActivo.isSelected());
 
             DataRepository.saveData();
-            lblSocioMensaje.setText("Socio actualizado.");
+            lblSocioMensaje.setText("Updated partner.");
         } else {
             // NUEVO
             Partner p = new Partner(
@@ -110,7 +110,7 @@ public class ApplicationController implements Initializable {
             );
 
             DataRepository.addPartner(p);
-            lblSocioMensaje.setText("Socio creado.");
+            lblSocioMensaje.setText("Partner created.");
         }
 
         allPartners.setAll(DataRepository.getPartners());
@@ -128,14 +128,14 @@ public class ApplicationController implements Initializable {
         Partner selected = lvClases.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
-            lblSocioMensaje.setText("Selecciona un socio para modificar.");
+            lblSocioMensaje.setText("Select a partner to modify.");
             return;
         }
 
         editingPartner = selected;
         showPartner(selected);
         setFormDisabled(false);
-        lblSocioMensaje.setText("Editando socio... (pulsa Save para guardar)");
+        lblSocioMensaje.setText("Editing partner... (press Save to save)");
     }
 
     @FXML
@@ -162,11 +162,11 @@ public class ApplicationController implements Initializable {
             JsonExporter.exportPartners(DataRepository.getPartners(), "partners.json");
             JsonExporter.exportTrainings(DataRepository.getTrainings(), "trainings.json");
 
-            lblSocioMensaje.setText("Exportación JSON completada: partners.json y trainings.json");
+            lblSocioMensaje.setText("JSON export completed: partners.json y trainings.json");
 
         } catch (Exception e) {
             e.printStackTrace();
-            lblSocioMensaje.setText("Error exportando JSON.");
+            lblSocioMensaje.setText("Error exporting JSON.");
         }
     }
 
@@ -174,7 +174,7 @@ public class ApplicationController implements Initializable {
     public void deletePartner() {
         Partner selected = lvClases.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            lblSocioMensaje.setText("Selecciona un socio para eliminar.");
+            lblSocioMensaje.setText("Select a partner to remove.");
             return;
         }
 
@@ -188,7 +188,7 @@ public class ApplicationController implements Initializable {
         clearPartnerFields();
         setFormDisabled(true);
 
-        lblSocioMensaje.setText("Socio eliminado.");
+        lblSocioMensaje.setText("Partner removed.");
     }
 
     private void showPartner(Partner p) {
@@ -212,7 +212,7 @@ public class ApplicationController implements Initializable {
         lvClases.getSelectionModel().clearSelection();
         clearPartnerFields();
         setFormDisabled(false);
-        lblSocioMensaje.setText("Nuevo socio");
+        lblSocioMensaje.setText("New partner.");
     }
 
     private void setFormDisabled(boolean disabled) {
